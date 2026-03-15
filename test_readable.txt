@@ -1,0 +1,143 @@
+﻿﻿node.exe : (node:8744) ExperimentalWarning: CommonJS module 
+C:\Program 
+Files\nodejs\node_modules\npm\node_modules\debug\src\node.js 
+is loading ES Module C:\Program Files\nodejs\node_modules\npm\n
+ode_modules\supports-color\index.js using require().
+At C:\Program Files\nodejs\npx.ps1:29 char:3
++   & $NODE_EXE $NPX_CLI_JS $args
++   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: ((node:8744) Exp.. 
+   .sing require().:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+Support for loading ES Module in require() is an experimental 
+feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was 
+created)
+C:\Projects\playwright-base-project-template\configs\.env.stag
+BASE_URL: https://www.saucedemo.com/
+USERNAME: standard_user
+PASSWORD: secret_sauce
+
+Running 1 test using 1 worker
+
+[1A[2KC:\Projects\playwright-base-project-template\configs\.env.stag
+
+[1A[2KBASE_URL: https://www.saucedemo.com/
+
+[1A[2KUSERNAME: standard_user
+
+[1A[2KPASSWORD: secret_sauce
+
+[1A[2K[1/1] [chromium] ΓÇ║ src\tests\checkout.spec.ts:19:5 ΓÇ║ Validate the added to cart function positive scenario @regression
+[1A[2K[chromium] ΓÇ║ src\tests\checkout.spec.ts:19:5 ΓÇ║ Validate the added to cart function positive scenario @regression
+Starting Add Item Step
+
+[1A[2KError in Add Item Step: locator.textContent: Test 
+ended.
+Call log:
+[2m  - waiting for 
+locator('div.inventory_item_name').first()[22m
+
+    at HomePage.retrieveSauceLabsBackpackItemName [90m(C:\Proj
+ects\playwright-base-project-template\[39msrc\pages\HomePage.t
+s:29:58[90m)[39m
+    at [90mC:\Projects\playwright-base-project-template\[39ms
+rc\tests\checkout.spec.ts:35:39
+    at [90mC:\Projects\playwright-base-project-template\[39ms
+rc\tests\checkout.spec.ts:30:10 {
+  [[32mSymbol(step)[39m]: {
+    location: {
+      file: [32m'C:\\Projects\\playwright-base-project-templat
+e\\src\\pages\\HomePage.ts'[39m,
+      line: [33m29[39m,
+      column: [33m58[39m,
+      function: 
+[32m'HomePage.retrieveSauceLabsBackpackItemName'[39m
+    },
+    category: [32m'pw:api'[39m,
+    title: [32m"Get text content 
+locator('div.inventory_item_name').first()"[39m,
+    apiName: [32m'locator.textContent'[39m,
+    params: {
+      selector: [32m'div.inventory_item_name >> nth=0'[39m,
+      strict: [33mtrue[39m,
+      timeout: [33m0[39m
+    },
+    group: [32m'getter'[39m,
+    stepId: [32m'pw:api@42'[39m,
+    boxedStack: [90mundefined[39m,
+    steps: [],
+    attachmentIndices: [],
+    info: TestStepInfoImpl {
+      annotations: [],
+      _testInfo: [36m[TestInfoImpl][39m,
+      _stepId: [32m'pw:api@42'[39m,
+      _title: [32m"Get text content 
+locator('div.inventory_item_name').first()"[39m,
+      _parentStep: [36m[TestStepInfoImpl][39m,
+      skip: [36m[Function (anonymous)][39m
+    },
+    complete: [36m[Function: complete][39m,
+    endWallTime: [33m1771042589636[39m,
+    error: {
+      message: [32m'Error: locator.textContent: Test 
+ended.\n'[39m +
+        [32m'Call log:\n'[39m +
+        [32m"\x1B[2m  - waiting for 
+locator('div.inventory_item_name').first()\x1B[22m\n"[39m,
+      stack: [32m'Error: locator.textContent: Test 
+ended.\n'[39m +
+        [32m'Call log:\n'[39m +
+        [32m"\x1B[2m  - waiting for 
+locator('div.inventory_item_name').first()\x1B[22m\n"[39m +
+        [32m'\n'[39m +
+        [32m'    at 
+HomePage.retrieveSauceLabsBackpackItemName (C:\\Projects\\playw
+right-base-project-template\\src\\pages\\HomePage.ts:29:58)\n'
+[39m +
+        [32m'    at C:\\Projects\\playwright-base-project-temp
+late\\src\\tests\\checkout.spec.ts:35:39\n'[39m +
+        [32m'    at C:\\Projects\\playwright-base-project-temp
+late\\src\\tests\\checkout.spec.ts:30:10'[39m,
+      cause: [90mundefined[39m
+    }
+  }
+}
+
+[1A[2K  1) [chromium] ΓÇ║ src\tests\checkout.spec.ts:19:5 ΓÇ║ Validate the added to cart function positive scenario @regression 
+
+    Error: locator.textContent: Test ended.
+    Call log:
+    [2m  - waiting for locator('div.inventory_item_name').first()[22m
+
+
+       at ..\pages\HomePage.ts:29
+
+      27 |
+      28 |     async retrieveSauceLabsBackpackItemName() {
+    > 29 |         return await this.sauceLabsBackpackItemLocator().textContent() ?? "";
+         |                                                          ^
+      30 |     }
+      31 |
+      32 |     async retrieveSauceLabsBackpackItemPrice() {
+        at HomePage.retrieveSauceLabsBackpackItemName (C:\Projects\playwright-base-project-template\src\pages\HomePage.ts:29:58)
+        at C:\Projects\playwright-base-project-template\src\tests\checkout.spec.ts:35:39
+        at C:\Projects\playwright-base-project-template\src\tests\checkout.spec.ts:30:10
+
+    attachment #1: screenshot (image/png) ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+    test-results\checkout-Validate-the-adde-2213e--function-positive-scenario-chromium\test-failed-1.png
+    ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+
+    attachment #2: trace (application/zip) ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+    test-results\checkout-Validate-the-adde-2213e--function-positive-scenario-chromium\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results\checkout-Validate-the-adde-2213e--function-positive-scenario-chromium\trace.zip
+
+    ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+
+
+[1A[2K  1 failed
+    [chromium] ΓÇ║ src\tests\checkout.spec.ts:19:5 ΓÇ║ Validate the added to cart function positive scenario @regression 
+
