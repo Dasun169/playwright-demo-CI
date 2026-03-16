@@ -5,6 +5,7 @@ import { logger } from "../utils/logger";
 import { logTestStatus } from "../utils/testStatusTracker";
 
 test(`TC_CHK_001 - Validate the full checkout process`, { tag: '@regression' }, async ({ loginPage, homePage, cartPage, checkoutStepOnePage, checkoutStepTwoPage, checkoutComplete, userName, password }) => {
+    logger.info("----------------------------------------------------------");
     logger.info("Starting Test: TC_CHK_001 - Validate the full checkout process");
     try {
         let itemName: string;
@@ -12,7 +13,6 @@ test(`TC_CHK_001 - Validate the full checkout process`, { tag: '@regression' }, 
         let itemQuantity: number = 0;
 
         await test.step(`Navigate to the home page with valid credentials`, async () => {
-            logger.info("----------------------------------------------------------");
             await loginPage.navigateToLoginPage();
             await loginPage.loginToHomePage(userName, password);
             await homePage.validateHomePage();
@@ -64,7 +64,6 @@ test.describe(`HomePage Element visibility validation`, { tag: '@regression' }, 
     });
 
     test(`TC_CHK_002 - Validate the home page element visibility`, async ({ homePage }) => {
-        logger.info("Starting Test: TC_CHK_002 - Validate the home page element visibility");
         try {
             await homePage.homePageElementValidate();
             await homePage.homePageItemCountValidate();
@@ -78,7 +77,6 @@ test.describe(`HomePage Element visibility validation`, { tag: '@regression' }, 
     });
 
     test(`TC_CHK_003 - Validate the home page hamburger menu about navigation`, async ({ homePage }) => {
-        logger.info("Starting Test: TC_CHK_003 - Validate the home page hamburger menu about navigation");
         try {
             await homePage.hamburgerMenuValidate();
             await homePage.hamburgerMenuAboutNavigationValidation();
@@ -91,7 +89,6 @@ test.describe(`HomePage Element visibility validation`, { tag: '@regression' }, 
     });
 
     test(`TC_CHK_004 - Validate the home page hamburger menu logout navigation`, async ({ homePage }) => {
-        logger.info("Starting Test: TC_CHK_004 - Validate the home page hamburger menu logout navigation");
         try {
             await homePage.hamburgerMenuValidate();
             await homePage.hamburgerMenuLogoutNavigationValidation();
@@ -116,7 +113,6 @@ test.describe(`Cart Page Element and Functionality Validation`, { tag: '@regress
     });
 
     test(`TC_CHK_005 - Continue Shopping button functionality validation`, async ({ cartPage }) => {
-        logger.info("Starting Test: TC_CHK_005 - Continue Shopping button functionality validation");
         try {
             await cartPage.continueShoppingButtonValidation();
             logTestStatus("TC_CHK_005", "passed");
@@ -128,7 +124,6 @@ test.describe(`Cart Page Element and Functionality Validation`, { tag: '@regress
     });
 
     test(`TC_CHK_006 - Remove item from cart functionality validation`, async ({ cartPage }) => {
-        logger.info("Starting Test: TC_CHK_006 - Remove item from cart functionality validation");
         try {
             await cartPage.removeItemFromCart();
             logTestStatus("TC_CHK_006", "passed");
@@ -176,7 +171,6 @@ test.describe(`Checkout Step Two Page Element and Functionality Validation`, { t
     });
 
     test(`TC_CHK_008 - Validate the checkout step two page element visibility`, async ({ checkoutStepTwoPage }) => {
-        logger.info("Starting Test: TC_CHK_008 - Validate the checkout step two page element visibility");
         try {
             await checkoutStepTwoPage.validateCheckoutStepTwoPageElements();
             logTestStatus("TC_CHK_008", "passed");
@@ -188,7 +182,6 @@ test.describe(`Checkout Step Two Page Element and Functionality Validation`, { t
     });
 
     test(`TC_CHK_009 - Validate the checkout step two page cancel button functionality`, async ({ checkoutStepTwoPage, homePage }) => {
-        logger.info("Starting Test: TC_CHK_009 - Validate the checkout step two page cancel button functionality");
         try {
             await checkoutStepTwoPage.clickCancelButton();
             await homePage.validateHomePage();
@@ -202,9 +195,9 @@ test.describe(`Checkout Step Two Page Element and Functionality Validation`, { t
 });
 
 test(`TC_CHK_010 - Validate the checkout complete page element visibility`, { tag: '@regression' }, async ({ loginPage, homePage, cartPage, checkoutStepOnePage, checkoutStepTwoPage, checkoutComplete, userName, password }) => {
-    logger.info("Starting Test: TC_CHK_010 - Validate the checkout complete page element visibility");
     try {
         logger.info("----------------------------------------------------------");
+        logger.info("Starting Test: TC_CHK_010 - Validate the checkout complete page element visibility");
         await loginPage.navigateToLoginPage();
         await loginPage.loginToHomePage(userName, password);
         await homePage.validateHomePage();
@@ -235,7 +228,6 @@ test.describe(`HomePage Footer Validation`, { tag: '@regression' }, async () => 
     });
 
     test(`TC_CHK_011 - Validate the home page footer text and social media links`, async ({ homePage }) => {
-        logger.info("Starting Test: TC_CHK_011 - Validate the home page footer text and social media links");
         try {
             await homePage.homePageFooterTextValidate();
             await homePage.homePageFooterSocialMediaLinksValidate();
@@ -248,7 +240,6 @@ test.describe(`HomePage Footer Validation`, { tag: '@regression' }, async () => 
     });
 
     test(`TC_CHK_012 - Validate the home page footer facebook navigation`, async ({ homePage }) => {
-        logger.info("Starting Test: TC_CHK_012 - Validate the home page footer facebook navigation");
         try {
             await homePage.homePageFooterFacebookNavigationValidation();
             logTestStatus("TC_CHK_012", "passed");
@@ -260,7 +251,6 @@ test.describe(`HomePage Footer Validation`, { tag: '@regression' }, async () => 
     });
 
     test(`TC_CHK_013 - Validate the home page footer twitter navigation`, async ({ homePage }) => {
-        logger.info("Starting Test: TC_CHK_013 - Validate the home page footer twitter navigation");
         try {
             await homePage.homePageFooterTwitterNavigationValidation();
             logTestStatus("TC_CHK_013", "passed");
@@ -272,7 +262,6 @@ test.describe(`HomePage Footer Validation`, { tag: '@regression' }, async () => 
     });
 
     test(`TC_CHK_014 - Validate the home page footer linkedin navigation`, async ({ homePage }) => {
-        logger.info("Starting Test: TC_CHK_014 - Validate the home page footer linkedin navigation");
         try {
             await homePage.homePageFooterLinkedInNavigationValidation();
             logTestStatus("TC_CHK_014", "passed");
@@ -286,9 +275,9 @@ test.describe(`HomePage Footer Validation`, { tag: '@regression' }, async () => 
 
 test.describe(`Error Message Validation for direct access to other pages`, { tag: '@regression' }, async () => {
     test(`TC_CHK_015 - Validate the error message for direct access to home page`, async ({ homePage, loginPage }) => {
-        logger.info("Starting Test: TC_CHK_015 - Validate the error message for direct access to home page");
         try {
             logger.info("----------------------------------------------------------");
+            logger.info("Starting Test: TC_CHK_015 - Validate the error message for direct access to home page");
             await homePage.openHomePageDirectly();
             await loginPage.validateErrorMessageForHomePage();
             logTestStatus("TC_CHK_015", "passed");
@@ -300,9 +289,9 @@ test.describe(`Error Message Validation for direct access to other pages`, { tag
     });
 
     test(`TC_CHK_016 - Validate the error message for direct access to cart page`, async ({ cartPage, loginPage }) => {
-        logger.info("Starting Test: TC_CHK_016 - Validate the error message for direct access to cart page");
         try {
             logger.info("----------------------------------------------------------");
+            logger.info("Starting Test: TC_CHK_016 - Validate the error message for direct access to cart page");
             await cartPage.openCartPageDirectly();
             await loginPage.validateErrorMessageForCartPage();
             logTestStatus("TC_CHK_016", "passed");
@@ -314,9 +303,9 @@ test.describe(`Error Message Validation for direct access to other pages`, { tag
     });
 
     test(`TC_CHK_017 - Validate the error message for direct access to checkout step one page`, async ({ checkoutStepOnePage, loginPage }) => {
-        logger.info("Starting Test: TC_CHK_017 - Validate the error message for direct access to checkout step one page");
         try {
             logger.info("----------------------------------------------------------");
+            logger.info("Starting Test: TC_CHK_017 - Validate the error message for direct access to checkout step one page");
             await checkoutStepOnePage.openCheckoutStepOnePageDirectly();
             await loginPage.validateErrorMessageForCheckoutStepOnePage();
             logTestStatus("TC_CHK_017", "passed");
@@ -328,9 +317,9 @@ test.describe(`Error Message Validation for direct access to other pages`, { tag
     });
 
     test(`TC_CHK_018 - Validate the error message for direct access to checkout step two page`, async ({ checkoutStepTwoPage, loginPage }) => {
-        logger.info("Starting Test: TC_CHK_018 - Validate the error message for direct access to checkout step two page");
         try {
             logger.info("----------------------------------------------------------");
+            logger.info("Starting Test: TC_CHK_018 - Validate the error message for direct access to checkout step two page");
             await checkoutStepTwoPage.openCheckoutStepTwoPageDirectly();
             await loginPage.validateErrorMessageForCheckoutStepTwoPage();
             logTestStatus("TC_CHK_018", "passed");
@@ -342,9 +331,9 @@ test.describe(`Error Message Validation for direct access to other pages`, { tag
     });
 
     test(`TC_CHK_019 - Validate the error message for direct access to checkout complete page`, async ({ checkoutComplete, loginPage }) => {
-        logger.info("Starting Test: TC_CHK_019 - Validate the error message for direct access to checkout complete page");
         try {
             logger.info("----------------------------------------------------------");
+            logger.info("Starting Test: TC_CHK_019 - Validate the error message for direct access to checkout complete page");
             await checkoutComplete.openCheckoutCompletePageDirectly();
             await loginPage.validateErrorMessageForCheckoutCompletePage();
             logTestStatus("TC_CHK_019", "passed");
@@ -357,9 +346,9 @@ test.describe(`Error Message Validation for direct access to other pages`, { tag
 });
 
 test(`TC_CHK_020 - Logout from home page`, { tag: '@regression' }, async ({ loginPage, homePage, userName, password }) => {
-    logger.info("Starting Test: TC_CHK_020 - Logout from home page");
     try {
         logger.info("----------------------------------------------------------");
+        logger.info("Starting Test: TC_CHK_020 - Logout from home page");
         await loginPage.navigateToLoginPage();
         await loginPage.loginToHomePage(userName, password);
         await homePage.validateHomePage();
