@@ -2,48 +2,57 @@ import { test } from "../../fixtures/fixture";
 import { userData } from "../utils/test_data/userData";
 import { checkoutErrorData } from "../utils/test_data/checkoutData";
 import { logger } from "../utils/logger";
+import { logTestStatus } from "../utils/testStatusTracker";
 
 test(`TC_CHK_001 - Validate the full checkout process`, { tag: '@regression' }, async ({ loginPage, homePage, cartPage, checkoutStepOnePage, checkoutStepTwoPage, checkoutComplete, userName, password }) => {
-    let itemName: string;
-    let itemPrice: string;
-    let itemQuantity: number = 0;
+    logger.info("Starting Test: TC_CHK_001 - Validate the full checkout process");
+    try {
+        let itemName: string;
+        let itemPrice: string;
+        let itemQuantity: number = 0;
 
-    await test.step(`Navigate to the home page with valid credentials`, async () => {
-        logger.info("----------------------------------------------------------");
-        await loginPage.navigateToLoginPage();
-        await loginPage.loginToHomePage(userName, password);
-        await homePage.validateHomePage();
-    });
+        await test.step(`Navigate to the home page with valid credentials`, async () => {
+            logger.info("----------------------------------------------------------");
+            await loginPage.navigateToLoginPage();
+            await loginPage.loginToHomePage(userName, password);
+            await homePage.validateHomePage();
+        });
 
-    await test.step(`Add a item to cart and verify it`, async () => {
+        await test.step(`Add a item to cart and verify it`, async () => {
+            itemName = await homePage.retrieveSauceLabsBackpackItemName();
+            itemPrice = await homePage.retrieveSauceLabsBackpackItemPrice();
 
-        itemName = await homePage.retrieveSauceLabsBackpackItemName();
-        itemPrice = await homePage.retrieveSauceLabsBackpackItemPrice();
+            await homePage.addSauceLabsBackpackToCart();
+            await homePage.navigateToCartPage();
+            await cartPage.validateCartPage();
+            await cartPage.validateItemDetails(itemName, itemPrice);
+            await cartPage.clickOnCheckoutButton();
+            itemQuantity++;
+        });
 
-        await homePage.addSauceLabsBackpackToCart();
-        await homePage.navigateToCartPage();
-        await cartPage.validateCartPage();
-        await cartPage.validateItemDetails(itemName, itemPrice);
-        await cartPage.clickOnCheckoutButton();
-        itemQuantity++;
-    });
+        await test.step(`Fill the user details and continue to the checkout step one page`, async () => {
+            await checkoutStepOnePage.validateCheckoutStepOnePage();
+            await checkoutStepOnePage.fillUserDetails(userData.validUserForCheckout.firstName, userData.validUserForCheckout.lastName, userData.validUserForCheckout.postalCode);
+            await checkoutStepOnePage.clickContinueButton();
+        });
 
-    await test.step(`Fill the user details and continue to the checkout step one page`, async () => {
-        await checkoutStepOnePage.validateCheckoutStepOnePage();
-        await checkoutStepOnePage.fillUserDetails(userData.validUserForCheckout.firstName, userData.validUserForCheckout.lastName, userData.validUserForCheckout.postalCode);
-        await checkoutStepOnePage.clickContinueButton();
-    });
+        await test.step(`Validate the checkout step two page`, async () => {
+            await checkoutStepTwoPage.validateCheckoutStepTwoPage();
+            await checkoutStepTwoPage.validateItemDetails(itemName, itemPrice, itemQuantity.toString());
+            await checkoutStepTwoPage.clickFinishButton();
+        });
 
-    await test.step(`Validate the checkout step two page`, async () => {
-        await checkoutStepTwoPage.validateCheckoutStepTwoPage();
-        await checkoutStepTwoPage.validateItemDetails(itemName, itemPrice, itemQuantity.toString());
-        await checkoutStepTwoPage.clickFinishButton();
-    });
+        await test.step(`Validate the checkout complete page and navigate to the home page`, async () => {
+            await checkoutComplete.validateCheckoutCompletePage();
+            await checkoutComplete.clickBackToHomeButton();
+        });
 
-    await test.step(`Validate the checkout complete page and navigate to the home page`, async () => {
-        await checkoutComplete.validateCheckoutCompletePage();
-        await checkoutComplete.clickBackToHomeButton();
-    });
+        logTestStatus("TC_CHK_001", "passed");
+    } catch (error) {
+        logger.error(`Error in TC_CHK_001: ${error}`);
+        logTestStatus("TC_CHK_001", "failed");
+        throw error;
+    }
 });
 
 test.describe(`HomePage Element visibility validation`, { tag: '@regression' }, async () => {
@@ -55,19 +64,43 @@ test.describe(`HomePage Element visibility validation`, { tag: '@regression' }, 
     });
 
     test(`TC_CHK_002 - Validate the home page element visibility`, async ({ homePage }) => {
-        await homePage.homePageElementValidate();
-        await homePage.homePageItemCountValidate();
-        await homePage.hamburgerMenuCloseValidate();
+        logger.info("Starting Test: TC_CHK_002 - Validate the home page element visibility");
+        try {
+            await homePage.homePageElementValidate();
+            await homePage.homePageItemCountValidate();
+            await homePage.hamburgerMenuCloseValidate();
+            logTestStatus("TC_CHK_002", "passed");
+        } catch (error) {
+            logger.error(`Error in TC_CHK_002: ${error}`);
+            logTestStatus("TC_CHK_002", "failed");
+            throw error;
+        }
     });
 
     test(`TC_CHK_003 - Validate the home page hamburger menu about navigation`, async ({ homePage }) => {
-        await homePage.hamburgerMenuValidate();
-        await homePage.hamburgerMenuAboutNavigationValidation();
+        logger.info("Starting Test: TC_CHK_003 - Validate the home page hamburger menu about navigation");
+        try {
+            await homePage.hamburgerMenuValidate();
+            await homePage.hamburgerMenuAboutNavigationValidation();
+            logTestStatus("TC_CHK_003", "passed");
+        } catch (error) {
+            logger.error(`Error in TC_CHK_003: ${error}`);
+            logTestStatus("TC_CHK_003", "failed");
+            throw error;
+        }
     });
 
     test(`TC_CHK_004 - Validate the home page hamburger menu logout navigation`, async ({ homePage }) => {
-        await homePage.hamburgerMenuValidate();
-        await homePage.hamburgerMenuLogoutNavigationValidation();
+        logger.info("Starting Test: TC_CHK_004 - Validate the home page hamburger menu logout navigation");
+        try {
+            await homePage.hamburgerMenuValidate();
+            await homePage.hamburgerMenuLogoutNavigationValidation();
+            logTestStatus("TC_CHK_004", "passed");
+        } catch (error) {
+            logger.error(`Error in TC_CHK_004: ${error}`);
+            logTestStatus("TC_CHK_004", "failed");
+            throw error;
+        }
     });
 });
 
@@ -83,25 +116,49 @@ test.describe(`Cart Page Element and Functionality Validation`, { tag: '@regress
     });
 
     test(`TC_CHK_005 - Continue Shopping button functionality validation`, async ({ cartPage }) => {
-        await cartPage.continueShoppingButtonValidation();
+        logger.info("Starting Test: TC_CHK_005 - Continue Shopping button functionality validation");
+        try {
+            await cartPage.continueShoppingButtonValidation();
+            logTestStatus("TC_CHK_005", "passed");
+        } catch (error) {
+            logger.error(`Error in TC_CHK_005: ${error}`);
+            logTestStatus("TC_CHK_005", "failed");
+            throw error;
+        }
     });
 
     test(`TC_CHK_006 - Remove item from cart functionality validation`, async ({ cartPage }) => {
-        await cartPage.removeItemFromCart();
+        logger.info("Starting Test: TC_CHK_006 - Remove item from cart functionality validation");
+        try {
+            await cartPage.removeItemFromCart();
+            logTestStatus("TC_CHK_006", "passed");
+        } catch (error) {
+            logger.error(`Error in TC_CHK_006: ${error}`);
+            logTestStatus("TC_CHK_006", "failed");
+            throw error;
+        }
     });
 });
 
 test(`TC_CHK_007 - Validate the checkout step one page cancel button functionality`, { tag: '@regression' }, async ({ loginPage, homePage, cartPage, checkoutStepOnePage, userName, password }) => {
-    logger.info("----------------------------------------------------------");
-    await loginPage.navigateToLoginPage();
-    await loginPage.loginToHomePage(userName, password);
-    await homePage.validateHomePage();
-    await homePage.addSauceLabsBackpackToCart();
-    await homePage.navigateToCartPage();
-    await cartPage.clickOnCheckoutButton();
-    await checkoutStepOnePage.validateCheckoutStepOnePage();
-    await checkoutStepOnePage.clickCancelButton();
-    await cartPage.validateCartPage();
+    logger.info("Starting Test: TC_CHK_007 - Validate the checkout step one page cancel button functionality");
+    try {
+        logger.info("----------------------------------------------------------");
+        await loginPage.navigateToLoginPage();
+        await loginPage.loginToHomePage(userName, password);
+        await homePage.validateHomePage();
+        await homePage.addSauceLabsBackpackToCart();
+        await homePage.navigateToCartPage();
+        await cartPage.clickOnCheckoutButton();
+        await checkoutStepOnePage.validateCheckoutStepOnePage();
+        await checkoutStepOnePage.clickCancelButton();
+        await cartPage.validateCartPage();
+        logTestStatus("TC_CHK_007", "passed");
+    } catch (error) {
+        logger.error(`Error in TC_CHK_007: ${error}`);
+        logTestStatus("TC_CHK_007", "failed");
+        throw error;
+    }
 });
 
 test.describe(`Checkout Step Two Page Element and Functionality Validation`, { tag: '@regression' }, async () => {
@@ -119,30 +176,54 @@ test.describe(`Checkout Step Two Page Element and Functionality Validation`, { t
     });
 
     test(`TC_CHK_008 - Validate the checkout step two page element visibility`, async ({ checkoutStepTwoPage }) => {
-        await checkoutStepTwoPage.validateCheckoutStepTwoPageElements();
+        logger.info("Starting Test: TC_CHK_008 - Validate the checkout step two page element visibility");
+        try {
+            await checkoutStepTwoPage.validateCheckoutStepTwoPageElements();
+            logTestStatus("TC_CHK_008", "passed");
+        } catch (error) {
+            logger.error(`Error in TC_CHK_008: ${error}`);
+            logTestStatus("TC_CHK_008", "failed");
+            throw error;
+        }
     });
 
     test(`TC_CHK_009 - Validate the checkout step two page cancel button functionality`, async ({ checkoutStepTwoPage, homePage }) => {
-        await checkoutStepTwoPage.clickCancelButton();
-        await homePage.validateHomePage();
+        logger.info("Starting Test: TC_CHK_009 - Validate the checkout step two page cancel button functionality");
+        try {
+            await checkoutStepTwoPage.clickCancelButton();
+            await homePage.validateHomePage();
+            logTestStatus("TC_CHK_009", "passed");
+        } catch (error) {
+            logger.error(`Error in TC_CHK_009: ${error}`);
+            logTestStatus("TC_CHK_009", "failed");
+            throw error;
+        }
     });
 });
 
 test(`TC_CHK_010 - Validate the checkout complete page element visibility`, { tag: '@regression' }, async ({ loginPage, homePage, cartPage, checkoutStepOnePage, checkoutStepTwoPage, checkoutComplete, userName, password }) => {
-    logger.info("----------------------------------------------------------");
-    await loginPage.navigateToLoginPage();
-    await loginPage.loginToHomePage(userName, password);
-    await homePage.validateHomePage();
-    await homePage.addSauceLabsBackpackToCart();
-    await homePage.navigateToCartPage();
-    await cartPage.clickOnCheckoutButton();
-    await checkoutStepOnePage.validateCheckoutStepOnePage();
-    await checkoutStepOnePage.fillUserDetails(userData.validUserForCheckout.firstName, userData.validUserForCheckout.lastName, userData.validUserForCheckout.postalCode);
-    await checkoutStepOnePage.clickContinueButton();
-    await checkoutStepTwoPage.validateCheckoutStepTwoPage();
-    await checkoutStepTwoPage.clickFinishButton();
-    await checkoutComplete.validateCheckoutCompletePage();
-    await checkoutComplete.checkoutComplatePageElementValidation();
+    logger.info("Starting Test: TC_CHK_010 - Validate the checkout complete page element visibility");
+    try {
+        logger.info("----------------------------------------------------------");
+        await loginPage.navigateToLoginPage();
+        await loginPage.loginToHomePage(userName, password);
+        await homePage.validateHomePage();
+        await homePage.addSauceLabsBackpackToCart();
+        await homePage.navigateToCartPage();
+        await cartPage.clickOnCheckoutButton();
+        await checkoutStepOnePage.validateCheckoutStepOnePage();
+        await checkoutStepOnePage.fillUserDetails(userData.validUserForCheckout.firstName, userData.validUserForCheckout.lastName, userData.validUserForCheckout.postalCode);
+        await checkoutStepOnePage.clickContinueButton();
+        await checkoutStepTwoPage.validateCheckoutStepTwoPage();
+        await checkoutStepTwoPage.clickFinishButton();
+        await checkoutComplete.validateCheckoutCompletePage();
+        await checkoutComplete.checkoutComplatePageElementValidation();
+        logTestStatus("TC_CHK_010", "passed");
+    } catch (error) {
+        logger.error(`Error in TC_CHK_010: ${error}`);
+        logTestStatus("TC_CHK_010", "failed");
+        throw error;
+    }
 });
 
 test.describe(`HomePage Footer Validation`, { tag: '@regression' }, async () => {
@@ -154,63 +235,143 @@ test.describe(`HomePage Footer Validation`, { tag: '@regression' }, async () => 
     });
 
     test(`TC_CHK_011 - Validate the home page footer text and social media links`, async ({ homePage }) => {
-        await homePage.homePageFooterTextValidate();
-        await homePage.homePageFooterSocialMediaLinksValidate();
+        logger.info("Starting Test: TC_CHK_011 - Validate the home page footer text and social media links");
+        try {
+            await homePage.homePageFooterTextValidate();
+            await homePage.homePageFooterSocialMediaLinksValidate();
+            logTestStatus("TC_CHK_011", "passed");
+        } catch (error) {
+            logger.error(`Error in TC_CHK_011: ${error}`);
+            logTestStatus("TC_CHK_011", "failed");
+            throw error;
+        }
     });
 
     test(`TC_CHK_012 - Validate the home page footer facebook navigation`, async ({ homePage }) => {
-        await homePage.homePageFooterFacebookNavigationValidation();
+        logger.info("Starting Test: TC_CHK_012 - Validate the home page footer facebook navigation");
+        try {
+            await homePage.homePageFooterFacebookNavigationValidation();
+            logTestStatus("TC_CHK_012", "passed");
+        } catch (error) {
+            logger.error(`Error in TC_CHK_012: ${error}`);
+            logTestStatus("TC_CHK_012", "failed");
+            throw error;
+        }
     });
 
     test(`TC_CHK_013 - Validate the home page footer twitter navigation`, async ({ homePage }) => {
-        await homePage.homePageFooterTwitterNavigationValidation();
+        logger.info("Starting Test: TC_CHK_013 - Validate the home page footer twitter navigation");
+        try {
+            await homePage.homePageFooterTwitterNavigationValidation();
+            logTestStatus("TC_CHK_013", "passed");
+        } catch (error) {
+            logger.error(`Error in TC_CHK_013: ${error}`);
+            logTestStatus("TC_CHK_013", "failed");
+            throw error;
+        }
     });
 
     test(`TC_CHK_014 - Validate the home page footer linkedin navigation`, async ({ homePage }) => {
-        await homePage.homePageFooterLinkedInNavigationValidation();
+        logger.info("Starting Test: TC_CHK_014 - Validate the home page footer linkedin navigation");
+        try {
+            await homePage.homePageFooterLinkedInNavigationValidation();
+            logTestStatus("TC_CHK_014", "passed");
+        } catch (error) {
+            logger.error(`Error in TC_CHK_014: ${error}`);
+            logTestStatus("TC_CHK_014", "failed");
+            throw error;
+        }
     });
 });
 
 test.describe(`Error Message Validation for direct access to other pages`, { tag: '@regression' }, async () => {
     test(`TC_CHK_015 - Validate the error message for direct access to home page`, async ({ homePage, loginPage }) => {
-        logger.info("----------------------------------------------------------");
-        await homePage.openHomePageDirectly();
-        await loginPage.validateErrorMessageForHomePage();
+        logger.info("Starting Test: TC_CHK_015 - Validate the error message for direct access to home page");
+        try {
+            logger.info("----------------------------------------------------------");
+            await homePage.openHomePageDirectly();
+            await loginPage.validateErrorMessageForHomePage();
+            logTestStatus("TC_CHK_015", "passed");
+        } catch (error) {
+            logger.error(`Error in TC_CHK_015: ${error}`);
+            logTestStatus("TC_CHK_015", "failed");
+            throw error;
+        }
     });
 
     test(`TC_CHK_016 - Validate the error message for direct access to cart page`, async ({ cartPage, loginPage }) => {
-        logger.info("----------------------------------------------------------");
-        await cartPage.openCartPageDirectly();
-        await loginPage.validateErrorMessageForCartPage();
+        logger.info("Starting Test: TC_CHK_016 - Validate the error message for direct access to cart page");
+        try {
+            logger.info("----------------------------------------------------------");
+            await cartPage.openCartPageDirectly();
+            await loginPage.validateErrorMessageForCartPage();
+            logTestStatus("TC_CHK_016", "passed");
+        } catch (error) {
+            logger.error(`Error in TC_CHK_016: ${error}`);
+            logTestStatus("TC_CHK_016", "failed");
+            throw error;
+        }
     });
 
     test(`TC_CHK_017 - Validate the error message for direct access to checkout step one page`, async ({ checkoutStepOnePage, loginPage }) => {
-        logger.info("----------------------------------------------------------");
-        await checkoutStepOnePage.openCheckoutStepOnePageDirectly();
-        await loginPage.validateErrorMessageForCheckoutStepOnePage();
+        logger.info("Starting Test: TC_CHK_017 - Validate the error message for direct access to checkout step one page");
+        try {
+            logger.info("----------------------------------------------------------");
+            await checkoutStepOnePage.openCheckoutStepOnePageDirectly();
+            await loginPage.validateErrorMessageForCheckoutStepOnePage();
+            logTestStatus("TC_CHK_017", "passed");
+        } catch (error) {
+            logger.error(`Error in TC_CHK_017: ${error}`);
+            logTestStatus("TC_CHK_017", "failed");
+            throw error;
+        }
     });
 
     test(`TC_CHK_018 - Validate the error message for direct access to checkout step two page`, async ({ checkoutStepTwoPage, loginPage }) => {
-        logger.info("----------------------------------------------------------");
-        await checkoutStepTwoPage.openCheckoutStepTwoPageDirectly();
-        await loginPage.validateErrorMessageForCheckoutStepTwoPage();
+        logger.info("Starting Test: TC_CHK_018 - Validate the error message for direct access to checkout step two page");
+        try {
+            logger.info("----------------------------------------------------------");
+            await checkoutStepTwoPage.openCheckoutStepTwoPageDirectly();
+            await loginPage.validateErrorMessageForCheckoutStepTwoPage();
+            logTestStatus("TC_CHK_018", "passed");
+        } catch (error) {
+            logger.error(`Error in TC_CHK_018: ${error}`);
+            logTestStatus("TC_CHK_018", "failed");
+            throw error;
+        }
     });
 
     test(`TC_CHK_019 - Validate the error message for direct access to checkout complete page`, async ({ checkoutComplete, loginPage }) => {
-        logger.info("----------------------------------------------------------");
-        await checkoutComplete.openCheckoutCompletePageDirectly();
-        await loginPage.validateErrorMessageForCheckoutCompletePage();
+        logger.info("Starting Test: TC_CHK_019 - Validate the error message for direct access to checkout complete page");
+        try {
+            logger.info("----------------------------------------------------------");
+            await checkoutComplete.openCheckoutCompletePageDirectly();
+            await loginPage.validateErrorMessageForCheckoutCompletePage();
+            logTestStatus("TC_CHK_019", "passed");
+        } catch (error) {
+            logger.error(`Error in TC_CHK_019: ${error}`);
+            logTestStatus("TC_CHK_019", "failed");
+            throw error;
+        }
     });
 });
 
 test(`TC_CHK_020 - Logout from home page`, { tag: '@regression' }, async ({ loginPage, homePage, userName, password }) => {
-    logger.info("----------------------------------------------------------");
-    await loginPage.navigateToLoginPage();
-    await loginPage.loginToHomePage(userName, password);
-    await homePage.validateHomePage();
-    await homePage.hamburgerMenuValidate();
-    await homePage.hamburgerMenuLogoutNavigationValidation();
-    await loginPage.validateLoginPage();
+    logger.info("Starting Test: TC_CHK_020 - Logout from home page");
+    try {
+        logger.info("----------------------------------------------------------");
+        await loginPage.navigateToLoginPage();
+        await loginPage.loginToHomePage(userName, password);
+        await homePage.validateHomePage();
+        await homePage.hamburgerMenuValidate();
+        await homePage.hamburgerMenuLogoutNavigationValidation();
+        await loginPage.validateLoginPage();
+        logTestStatus("TC_CHK_020", "passed");
+    } catch (error) {
+        logger.error(`Error in TC_CHK_020: ${error}`);
+        logTestStatus("TC_CHK_020", "failed");
+        throw error;
+    }
 });
 
 test.describe(`Checkout One Page Form Error messages validation with empty fields`, { tag: '@regression' }, async () => {
@@ -226,19 +387,27 @@ test.describe(`Checkout One Page Form Error messages validation with empty field
     });
 
     const testCases = [
-        { name: "TC_CHK_021 - Validate empty first name error", data: checkoutErrorData.emptyFirstName },
-        { name: "TC_CHK_022 - Validate empty last name error", data: checkoutErrorData.emptyLastName },
-        { name: "TC_CHK_023 - Validate empty postal code error", data: checkoutErrorData.emptyPostalCode }
+        checkoutErrorData.emptyFirstName,
+        checkoutErrorData.emptyLastName,
+        checkoutErrorData.emptyPostalCode
     ];
 
-    for (const tc of testCases) {
-        test(`${tc.name}`, async ({ checkoutStepOnePage }) => {
-            await checkoutStepOnePage.validateCheckoutErrorMessage(
-                tc.data.firstName,
-                tc.data.lastName,
-                tc.data.postalCode,
-                tc.data.errorMessage
-            );
+    for (const data of testCases) {
+        test(`${data.testId} - ${data.description}`, async ({ checkoutStepOnePage }) => {
+            logger.info(`Starting Test: ${data.testId} - ${data.description}`);
+            try {
+                await checkoutStepOnePage.validateCheckoutErrorMessage(
+                    data.firstName,
+                    data.lastName,
+                    data.postalCode,
+                    data.errorMessage
+                );
+                logTestStatus(data.testId, "passed");
+            } catch (error) {
+                logger.error(`Error in ${data.testId}: ${error}`);
+                logTestStatus(data.testId, "failed");
+                throw error;
+            }
         });
     }
 });
