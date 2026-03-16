@@ -4,7 +4,7 @@ import { checkoutErrorData } from "../utils/test_data/checkoutData";
 import { logger } from "../utils/logger";
 import { logTestStatus } from "../utils/testStatusTracker";
 
-test(`TC_CHK_001 - Validate the full checkout process`, { tag: '@regression' }, async ({ loginPage, homePage, cartPage, checkoutStepOnePage, checkoutStepTwoPage, checkoutComplete, userName, password }) => {
+test(`TC_CHK_001 - Validate the full checkout process`, { tag: ['@regression', '@smoke'] }, async ({ loginPage, homePage, cartPage, checkoutStepOnePage, checkoutStepTwoPage, checkoutComplete, userName, password }) => {
     logger.info("----------------------------------------------------------");
     logger.info("Starting Test: TC_CHK_001 - Validate the full checkout process");
     try {
@@ -55,7 +55,7 @@ test(`TC_CHK_001 - Validate the full checkout process`, { tag: '@regression' }, 
     }
 });
 
-test.describe(`HomePage Element visibility validation`, { tag: '@regression' }, async () => {
+test.describe(`HomePage Element visibility validation`, { tag: ['@regression', '@smoke'] }, async () => {
     test.beforeEach(async ({ loginPage, homePage, userName, password }) => {
         logger.info("----------------------------------------------------------");
         await loginPage.navigateToLoginPage();
@@ -76,7 +76,7 @@ test.describe(`HomePage Element visibility validation`, { tag: '@regression' }, 
         }
     });
 
-    test(`TC_CHK_003 - Validate the home page hamburger menu about navigation`, async ({ homePage }) => {
+    test(`TC_CHK_003 - Validate the home page hamburger menu about navigation`, { tag: ['@regression', '@smoke'] }, async ({ homePage }) => {
         try {
             await homePage.hamburgerMenuValidate();
             await homePage.hamburgerMenuAboutNavigationValidation();
@@ -88,7 +88,7 @@ test.describe(`HomePage Element visibility validation`, { tag: '@regression' }, 
         }
     });
 
-    test(`TC_CHK_004 - Validate the home page hamburger menu logout navigation`, async ({ homePage }) => {
+    test(`TC_CHK_004 - Validate the home page hamburger menu logout navigation`, { tag: ['@regression', '@smoke'] }, async ({ homePage }) => {
         try {
             await homePage.hamburgerMenuValidate();
             await homePage.hamburgerMenuLogoutNavigationValidation();
@@ -101,7 +101,7 @@ test.describe(`HomePage Element visibility validation`, { tag: '@regression' }, 
     });
 });
 
-test.describe(`Cart Page Element and Functionality Validation`, { tag: '@regression' }, async () => {
+test.describe(`Cart Page Element and Functionality Validation`, { tag: ['@regression', '@smoke'] }, async () => {
     test.beforeEach(async ({ loginPage, homePage, userName, password }) => {
         logger.info("----------------------------------------------------------");
         await loginPage.navigateToLoginPage();
@@ -112,7 +112,7 @@ test.describe(`Cart Page Element and Functionality Validation`, { tag: '@regress
         await homePage.navigateToCartPage();
     });
 
-    test(`TC_CHK_005 - Continue Shopping button functionality validation`, async ({ cartPage }) => {
+    test(`TC_CHK_005 - Continue Shopping button functionality validation`, { tag: ['@regression', '@smoke'] }, async ({ cartPage }) => {
         try {
             await cartPage.continueShoppingButtonValidation();
             logTestStatus("TC_CHK_005", "passed");
@@ -345,7 +345,7 @@ test.describe(`Error Message Validation for direct access to other pages`, { tag
     });
 });
 
-test(`TC_CHK_020 - Logout from home page`, { tag: '@regression' }, async ({ loginPage, homePage, userName, password }) => {
+test(`TC_CHK_020 - Logout from home page`, { tag: ['@regression', '@smoke'] }, async ({ loginPage, homePage, userName, password }) => {
     try {
         logger.info("----------------------------------------------------------");
         logger.info("Starting Test: TC_CHK_020 - Logout from home page");
