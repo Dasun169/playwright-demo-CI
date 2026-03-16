@@ -18,17 +18,32 @@ export default defineConfig({
   expect: { timeout: 10_000 },
 
   reporter: [
+    ['list'],
     ['html', {
       outputFolder: 'reports/playwright-report',
       open: 'never',
     }],
     ['allure-playwright', {
       resultsDir: 'reports/allure-report/allure-results',
+      suiteTitle: false,
+      detail: true,
+      environmentInfo: {
+        node_version: process.version,
+        platform: process.platform,
+        browsers: process.env.BROWSERS || 'all',
+      }
     }],
+    [
+      "json",
+      {
+        outputFile: "reports/json-report/results.json",
+      },
+    ],
   ],
 
   use: {
     baseURL: process.env.BASE_URL,
+    headless: true,
     screenshot: 'only-on-failure',
     video: 'retain-on-failure',
     trace: 'on',
@@ -40,6 +55,7 @@ export default defineConfig({
       name: 'chromium',
       use: {
         ...devices['Desktop Chrome'],
+        channel: 'chrome',
       },
     },
 
