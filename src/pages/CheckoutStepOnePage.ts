@@ -1,4 +1,5 @@
 import { Page, expect } from "@playwright/test";
+import { logger } from "../utils/logger";
 
 export class CheckoutStepOnePage {
     private readonly page: Page;
@@ -24,8 +25,15 @@ export class CheckoutStepOnePage {
      * by checking if the checkout step one page validation locator is visible and the url contains the checkout step one page.
      */
     async validateCheckoutStepOnePage() {
-        await expect(this.checkoutStepOnePageValidationLocator()).toBeVisible();
-        await expect(this.page).toHaveURL(process.env.BASE_URL + "checkout-step-one.html");
+        try {
+            await expect(this.checkoutStepOnePageValidationLocator()).toBeVisible();
+            await expect(this.page).toHaveURL(process.env.BASE_URL + "checkout-step-one.html");
+            logger.info("Checkout step one page validated successfully");
+        }
+        catch (error) {
+            logger.error(`Checkout step one page validation failed: ${error}`);
+            throw error;
+        }
     }
 
     /**
@@ -36,12 +44,19 @@ export class CheckoutStepOnePage {
      * @PARAM postalCode the postal code of the user
      */
     async fillUserDetails(firstName: string, lastName: string, postalCode: string) {
-        await expect(this.firstNameLocator()).toBeVisible();
-        await this.firstNameLocator().fill(firstName);
-        await expect(this.lastNameLocator()).toBeVisible();
-        await this.lastNameLocator().fill(lastName);
-        await expect(this.postalCodeLocator()).toBeVisible();
-        await this.postalCodeLocator().fill(postalCode);
+        try {
+            await expect(this.firstNameLocator()).toBeVisible();
+            await this.firstNameLocator().fill(firstName);
+            await expect(this.lastNameLocator()).toBeVisible();
+            await this.lastNameLocator().fill(lastName);
+            await expect(this.postalCodeLocator()).toBeVisible();
+            await this.postalCodeLocator().fill(postalCode);
+            logger.info("User details filled successfully");
+        }
+        catch (error) {
+            logger.error(`User details filling failed: ${error}`);
+            throw error;
+        }
     }
 
     /**
@@ -49,8 +64,15 @@ export class CheckoutStepOnePage {
      * by clicking the continue button.
      */
     async clickContinueButton() {
-        await expect(this.continueButtonLocator()).toBeVisible();
-        await this.continueButtonLocator().click();
+        try {
+            await expect(this.continueButtonLocator()).toBeVisible();
+            await this.continueButtonLocator().click();
+            logger.info("Continue button clicked successfully");
+        }
+        catch (error) {
+            logger.error(`Continue button click failed: ${error}`);
+            throw error;
+        }
     }
 
     /**
@@ -58,8 +80,15 @@ export class CheckoutStepOnePage {
      * by clicking the cancel button.
      */
     async clickCancelButton() {
-        await expect(this.cancelButtonLocator()).toBeVisible();
-        await this.cancelButtonLocator().click();
+        try {
+            await expect(this.cancelButtonLocator()).toBeVisible();
+            await this.cancelButtonLocator().click();
+            logger.info("Cancel button clicked successfully");
+        }
+        catch (error) {
+            logger.error(`Cancel button click failed: ${error}`);
+            throw error;
+        }
     }
 
     /**
@@ -67,7 +96,14 @@ export class CheckoutStepOnePage {
      * by navigating to the checkout step one page URL.
      */
     async openCheckoutStepOnePageDirectly() {
-        await this.page.goto(this.url);
+        try {
+            await this.page.goto(this.url);
+            logger.info("Checkout step one page opened successfully");
+        }
+        catch (error) {
+            logger.error(`Checkout step one page opened failed: ${error}`);
+            throw error;
+        }
     }
 
     /**
@@ -79,19 +115,26 @@ export class CheckoutStepOnePage {
      * @param expectedError the expected error message
      */
     async validateCheckoutErrorMessage(firstName: string, lastName: string, postalCode: string, expectedError: string) {
-        await expect(this.firstNameLocator()).toBeVisible();
-        await this.firstNameLocator().fill(firstName);
+        try {
+            await expect(this.firstNameLocator()).toBeVisible();
+            await this.firstNameLocator().fill(firstName);
 
-        await expect(this.lastNameLocator()).toBeVisible();
-        await this.lastNameLocator().fill(lastName);
+            await expect(this.lastNameLocator()).toBeVisible();
+            await this.lastNameLocator().fill(lastName);
 
-        await expect(this.postalCodeLocator()).toBeVisible();
-        await this.postalCodeLocator().fill(postalCode);
+            await expect(this.postalCodeLocator()).toBeVisible();
+            await this.postalCodeLocator().fill(postalCode);
 
-        await expect(this.continueButtonLocator()).toBeVisible();
-        await this.continueButtonLocator().click();
+            await expect(this.continueButtonLocator()).toBeVisible();
+            await this.continueButtonLocator().click();
 
-        await expect(this.errorMessageLocator()).toBeVisible();
-        await expect(this.errorMessageLocator()).toHaveText(expectedError);
+            await expect(this.errorMessageLocator()).toBeVisible();
+            await expect(this.errorMessageLocator()).toHaveText(expectedError);
+            logger.info("Checkout error message validated successfully");
+        }
+        catch (error) {
+            logger.error(`Checkout error message validation failed: ${error}`);
+            throw error;
+        }
     }
 }

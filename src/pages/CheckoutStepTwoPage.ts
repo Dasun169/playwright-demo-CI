@@ -1,4 +1,5 @@
 import { Page, expect } from "@playwright/test";
+import { logger } from "../utils/logger";
 
 export class CheckoutStepTwoPage {
     private readonly page: Page;
@@ -30,8 +31,15 @@ export class CheckoutStepTwoPage {
      * by checking if the checkout step two page validation locator is visible and the url contains the checkout step two page.
      */
     async validateCheckoutStepTwoPage() {
-        await expect(this.checkoutStepTwoPageValidationLocator()).toBeVisible();
-        await expect(this.page).toHaveURL(process.env.BASE_URL + "checkout-step-two.html");
+        try {
+            await expect(this.checkoutStepTwoPageValidationLocator()).toBeVisible();
+            await expect(this.page).toHaveURL(process.env.BASE_URL + "checkout-step-two.html");
+            logger.info("Checkout step two page validated successfully");
+        }
+        catch (error) {
+            logger.error(`Checkout step two page validation failed: ${error}`);
+            throw error;
+        }
     }
 
     /**
@@ -42,9 +50,16 @@ export class CheckoutStepTwoPage {
      * @PARAM itemQuantity the quantity of the item
      */
     async validateItemDetails(itemName: string, itemPrice: string, itemQuantity: string) {
-        await expect(this.itemNameLocator()).toHaveText(itemName);
-        await expect(this.itemPriceLocator()).toHaveText(itemPrice);
-        await expect(this.itemQuantityLocator()).toHaveText(itemQuantity);
+        try {
+            await expect(this.itemNameLocator()).toHaveText(itemName);
+            await expect(this.itemPriceLocator()).toHaveText(itemPrice);
+            await expect(this.itemQuantityLocator()).toHaveText(itemQuantity);
+            logger.info("Item details validated successfully");
+        }
+        catch (error) {
+            logger.error(`Item details validation failed: ${error}`);
+            throw error;
+        }
     }
 
     /**
@@ -52,8 +67,15 @@ export class CheckoutStepTwoPage {
      * by clicking the finish button.
      */
     async clickFinishButton() {
-        await expect(this.finishButtonLocator()).toBeVisible();
-        await this.finishButtonLocator().click();
+        try {
+            await expect(this.finishButtonLocator()).toBeVisible();
+            await this.finishButtonLocator().click();
+            logger.info("Finish button clicked successfully");
+        }
+        catch (error) {
+            logger.error(`Finish button click failed: ${error}`);
+            throw error;
+        }
     }
 
     /**
@@ -61,24 +83,38 @@ export class CheckoutStepTwoPage {
      * by clicking the cancel button.
      */
     async clickCancelButton() {
-        await expect(this.cancelButtonLocator()).toBeVisible();
-        await this.cancelButtonLocator().click();
-        await expect(this.page).toHaveURL(process.env.BASE_URL + "inventory.html");
+        try {
+            await expect(this.cancelButtonLocator()).toBeVisible();
+            await this.cancelButtonLocator().click();
+            await expect(this.page).toHaveURL(process.env.BASE_URL + "inventory.html");
+            logger.info("Cancel button clicked successfully");
+        }
+        catch (error) {
+            logger.error(`Cancel button click failed: ${error}`);
+            throw error;
+        }
     }
 
     /**
      * Validate element in the Checkout Sep Two Page
      */
     async validateCheckoutStepTwoPageElements() {
-        await expect(this.paymentInformationLocator()).toBeVisible();
-        await expect(this.paymentInformationValueLocator()).toBeVisible();
-        await expect(this.paymentInformationValueLocator()).toContainText("SauceCard #31");
-        await expect(this.shippingInformationLocator()).toBeVisible();
-        await expect(this.shippingInformationValueLocator()).toBeVisible();
-        await expect(this.shippingInformationValueLocator()).toContainText("Free Pony Express Delivery!");
-        await expect(this.priceInformationLocator()).toBeVisible();
-        await expect(this.priceInformationValueLocator()).toBeVisible();
-        await expect(this.priceInformationValueLocator()).toContainText("Item total:");
+        try {
+            await expect(this.paymentInformationLocator()).toBeVisible();
+            await expect(this.paymentInformationValueLocator()).toBeVisible();
+            await expect(this.paymentInformationValueLocator()).toContainText("SauceCard #31");
+            await expect(this.shippingInformationLocator()).toBeVisible();
+            await expect(this.shippingInformationValueLocator()).toBeVisible();
+            await expect(this.shippingInformationValueLocator()).toContainText("Free Pony Express Delivery!");
+            await expect(this.priceInformationLocator()).toBeVisible();
+            await expect(this.priceInformationValueLocator()).toBeVisible();
+            await expect(this.priceInformationValueLocator()).toContainText("Item total:");
+            logger.info("Checkout step two page elements validated successfully");
+        }
+        catch (error) {
+            logger.error(`Checkout step two page elements validation failed: ${error}`);
+            throw error;
+        }
     }
 
     /**
@@ -86,6 +122,13 @@ export class CheckoutStepTwoPage {
      * by navigating to the checkout step two page URL.
      */
     async openCheckoutStepTwoPageDirectly() {
-        await this.page.goto(this.url);
+        try {
+            await this.page.goto(this.url);
+            logger.info("Checkout step two page opened successfully");
+        }
+        catch (error) {
+            logger.error(`Checkout step two page opened failed: ${error}`);
+            throw error;
+        }
     }
 }

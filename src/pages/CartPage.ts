@@ -1,4 +1,5 @@
 import { Page, expect } from '@playwright/test';
+import { logger } from '../utils/logger';
 
 export class CartPage {
     private readonly page: Page;
@@ -26,6 +27,7 @@ export class CartPage {
     async validateCartPage() {
         await expect(this.cartPageValidationLocator()).toHaveText('Your Cart');
         await expect(this.page).toHaveURL(process.env.BASE_URL + "cart.html");
+        logger.info("Cart page validated successfully");
     }
 
     /**
@@ -55,6 +57,7 @@ export class CartPage {
      */
     async clickOnCheckoutButton() {
         await this.checkoutButtonLocator().click();
+        logger.info("Checkout button clicked successfully");
     }
 
     /**
@@ -65,6 +68,7 @@ export class CartPage {
         await expect(this.continueShoppingButtonLocator()).toBeVisible();
         await this.continueShoppingButtonLocator().click();
         await expect(this.page).toHaveURL(process.env.BASE_URL + "inventory.html");
+        logger.info("Continue shopping button validated successfully");
     }
 
     /**
@@ -75,5 +79,6 @@ export class CartPage {
         let count = await this.cartItemCatchLocator().count();
         await this.itemRemoveButtonLocator().click();
         await expect(this.cartItemCatchLocator()).toHaveCount(count - 1);
+        logger.info("Item removed from cart successfully");
     }
 }

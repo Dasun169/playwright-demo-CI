@@ -1,6 +1,7 @@
 import { test } from "../../fixtures/fixture";
 import { userData } from "../utils/test_data/userData";
 import { checkoutErrorData } from "../utils/test_data/checkoutData";
+import { logger } from "../utils/logger";
 
 test(`TC_CHK_001 - Validate the full checkout process`, { tag: '@regression' }, async ({ loginPage, homePage, cartPage, checkoutStepOnePage, checkoutStepTwoPage, checkoutComplete, userName, password }) => {
     let itemName: string;
@@ -8,6 +9,7 @@ test(`TC_CHK_001 - Validate the full checkout process`, { tag: '@regression' }, 
     let itemQuantity: number = 0;
 
     await test.step(`Navigate to the home page with valid credentials`, async () => {
+        logger.info("----------------------------------------------------------");
         await loginPage.navigateToLoginPage();
         await loginPage.loginToHomePage(userName, password);
         await homePage.validateHomePage();
@@ -46,6 +48,7 @@ test(`TC_CHK_001 - Validate the full checkout process`, { tag: '@regression' }, 
 
 test.describe(`HomePage Element visibility validation`, { tag: '@regression' }, async () => {
     test.beforeEach(async ({ loginPage, homePage, userName, password }) => {
+        logger.info("----------------------------------------------------------");
         await loginPage.navigateToLoginPage();
         await loginPage.loginToHomePage(userName, password);
         await homePage.validateHomePage();
@@ -70,6 +73,7 @@ test.describe(`HomePage Element visibility validation`, { tag: '@regression' }, 
 
 test.describe(`Cart Page Element and Functionality Validation`, { tag: '@regression' }, async () => {
     test.beforeEach(async ({ loginPage, homePage, userName, password }) => {
+        logger.info("----------------------------------------------------------");
         await loginPage.navigateToLoginPage();
         await loginPage.loginToHomePage(userName, password);
         await homePage.validateHomePage();
@@ -88,6 +92,7 @@ test.describe(`Cart Page Element and Functionality Validation`, { tag: '@regress
 });
 
 test(`TC_CHK_007 - Validate the checkout step one page cancel button functionality`, { tag: '@regression' }, async ({ loginPage, homePage, cartPage, checkoutStepOnePage, userName, password }) => {
+    logger.info("----------------------------------------------------------");
     await loginPage.navigateToLoginPage();
     await loginPage.loginToHomePage(userName, password);
     await homePage.validateHomePage();
@@ -101,6 +106,7 @@ test(`TC_CHK_007 - Validate the checkout step one page cancel button functionali
 
 test.describe(`Checkout Step Two Page Element and Functionality Validation`, { tag: '@regression' }, async () => {
     test.beforeEach(async ({ loginPage, homePage, cartPage, checkoutStepOnePage, userName, password }) => {
+        logger.info("----------------------------------------------------------");
         await loginPage.navigateToLoginPage();
         await loginPage.loginToHomePage(userName, password);
         await homePage.validateHomePage();
@@ -123,6 +129,7 @@ test.describe(`Checkout Step Two Page Element and Functionality Validation`, { t
 });
 
 test(`TC_CHK_010 - Validate the checkout complete page element visibility`, { tag: '@regression' }, async ({ loginPage, homePage, cartPage, checkoutStepOnePage, checkoutStepTwoPage, checkoutComplete, userName, password }) => {
+    logger.info("----------------------------------------------------------");
     await loginPage.navigateToLoginPage();
     await loginPage.loginToHomePage(userName, password);
     await homePage.validateHomePage();
@@ -140,6 +147,7 @@ test(`TC_CHK_010 - Validate the checkout complete page element visibility`, { ta
 
 test.describe(`HomePage Footer Validation`, { tag: '@regression' }, async () => {
     test.beforeEach(async ({ loginPage, homePage, userName, password }) => {
+        logger.info("----------------------------------------------------------");
         await loginPage.navigateToLoginPage();
         await loginPage.loginToHomePage(userName, password);
         await homePage.validateHomePage();
@@ -165,32 +173,38 @@ test.describe(`HomePage Footer Validation`, { tag: '@regression' }, async () => 
 
 test.describe(`Error Message Validation for direct access to other pages`, { tag: '@regression' }, async () => {
     test(`TC_CHK_015 - Validate the error message for direct access to home page`, async ({ homePage, loginPage }) => {
+        logger.info("----------------------------------------------------------");
         await homePage.openHomePageDirectly();
         await loginPage.validateErrorMessageForHomePage();
     });
 
     test(`TC_CHK_016 - Validate the error message for direct access to cart page`, async ({ cartPage, loginPage }) => {
+        logger.info("----------------------------------------------------------");
         await cartPage.openCartPageDirectly();
         await loginPage.validateErrorMessageForCartPage();
     });
 
     test(`TC_CHK_017 - Validate the error message for direct access to checkout step one page`, async ({ checkoutStepOnePage, loginPage }) => {
+        logger.info("----------------------------------------------------------");
         await checkoutStepOnePage.openCheckoutStepOnePageDirectly();
         await loginPage.validateErrorMessageForCheckoutStepOnePage();
     });
 
     test(`TC_CHK_018 - Validate the error message for direct access to checkout step two page`, async ({ checkoutStepTwoPage, loginPage }) => {
+        logger.info("----------------------------------------------------------");
         await checkoutStepTwoPage.openCheckoutStepTwoPageDirectly();
         await loginPage.validateErrorMessageForCheckoutStepTwoPage();
     });
 
     test(`TC_CHK_019 - Validate the error message for direct access to checkout complete page`, async ({ checkoutComplete, loginPage }) => {
+        logger.info("----------------------------------------------------------");
         await checkoutComplete.openCheckoutCompletePageDirectly();
         await loginPage.validateErrorMessageForCheckoutCompletePage();
     });
 });
 
 test(`TC_CHK_020 - Logout from home page`, { tag: '@regression' }, async ({ loginPage, homePage, userName, password }) => {
+    logger.info("----------------------------------------------------------");
     await loginPage.navigateToLoginPage();
     await loginPage.loginToHomePage(userName, password);
     await homePage.validateHomePage();
@@ -201,6 +215,7 @@ test(`TC_CHK_020 - Logout from home page`, { tag: '@regression' }, async ({ logi
 
 test.describe(`Checkout One Page Form Error messages validation with empty fields`, { tag: '@regression' }, async () => {
     test.beforeEach(async ({ loginPage, homePage, cartPage, checkoutStepOnePage, userName, password }) => {
+        logger.info("----------------------------------------------------------");
         await loginPage.navigateToLoginPage();
         await loginPage.loginToHomePage(userName, password);
         await homePage.validateHomePage();
