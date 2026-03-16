@@ -1,1 +1,0 @@
-C:\Projects\playwright-base-project-template\config\.env.stag
