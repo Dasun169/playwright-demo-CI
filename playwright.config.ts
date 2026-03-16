@@ -9,6 +9,7 @@ dotenv.config({
 });
 
 export default defineConfig({
+  globalSetup: require.resolve('./src/utils/globalSetup'),
   testDir: './src/tests',
   fullyParallel: false,
   forbidOnly: !!process.env.CI,
