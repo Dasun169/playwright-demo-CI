@@ -23,7 +23,11 @@
     "test:edge:ci": "npx playwright test --project='Microsoft Edge' --grep",
     "test:google-chrome:headed": "npx playwright test --headed --project='Google Chrome' --grep",
     "test:google-chrome:debug": "npx playwright test --debug --project='Google Chrome' --grep",
-    "test:google-chrome:ci": "npx playwright test --project='Google Chrome' --grep"
+    "test:google-chrome:ci": "npx playwright test --project='Google Chrome' --grep",
+    "allure:clean": "rimraf reports/allure-report",
+    "allure:generate": "allure generate reports/allure-report/allure-results --clean -o reports/allure-report/html",
+    "allure:open": "allure open reports/allure-report/html",
+    "allure:serve": "allure serve reports/allure-report/allure-results"
   },
   "keywords": [],
   "author": "",
@@ -32,7 +36,8 @@
   "devDependencies": {
     "@playwright/test": "^1.58.2",
     "@types/node": "^25.2.3",
-    "allure-playwright": "^3.4.5"
+    "allure-playwright": "^3.4.5",
+    "rimraf": "^6.1.3"
   },
   "dependencies": {
     "dotenv": "^17.3.1",
