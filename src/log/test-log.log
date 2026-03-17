@@ -1,0 +1,25 @@
+2026-03-17 09:52:27 info: ----------------------------------------------------------
+2026-03-17 09:52:30 info: Login page navigated successfully
+2026-03-17 09:52:31 info: Login to home page successful
+2026-03-17 09:52:31 info: Home page validated successfully
+2026-03-17 09:52:31 info: Sauce labs backpack added to cart successfully
+2026-03-17 09:52:31 info: Cart page navigated successfully
+2026-03-17 09:52:31 info: Continue shopping button validated successfully
+2026-03-17 09:52:31 info: Test Case: TC_CHK_005 | Status: passed
+2026-03-17 09:52:32 info: ----------------------------------------------------------
+2026-03-17 09:52:34 info: Login page navigated successfully
+2026-03-17 09:52:35 info: Login to home page successful
+2026-03-17 09:52:35 info: Home page validated successfully
+2026-03-17 09:52:35 info: Sauce labs backpack added to cart successfully
+2026-03-17 09:52:35 info: Cart page navigated successfully
+2026-03-17 09:52:35 info: Item removed from cart successfully
+2026-03-17 09:52:35 info: Test Case: TC_CHK_006 | Status: passed
+2026-03-17 09:52:36 info: ----------------------------------------------------------
+2026-03-17 09:52:36 info: Starting Test: TC_CHK_020 - Logout from home page
+2026-03-17 09:52:38 info: Login page navigated successfully
+2026-03-17 09:52:38 info: Login to home page successful
+2026-03-17 09:52:39 info: Home page validated successfully
+2026-03-17 09:52:39 info: Hamburger menu validated successfully
+2026-03-17 09:52:40 info: Hamburger menu logout navigation validated successfully
+2026-03-17 09:52:40 info: Login page validated successfully
+2026-03-17 09:52:40 info: Test Case: TC_CHK_020 | Status: passed
