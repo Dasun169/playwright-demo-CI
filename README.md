@@ -332,3 +332,19 @@ Running 7 tests using 1 worker
 3. Commit changes (git commit -m 'Add some AmazingFeature')
 4. Push to branch (git push origin feature/AmazingFeature)
 5. Open a Pull Request
+## 📸 Screenshots
+### Jenkins Pipeline View - Push Docker Image
+![Jenkins Pipeline](images/job-for-push-image.png)
+*Jenkins pipeline stages showing Checkout Code, Build Docker Image, and Push to Docker Hub stages*
+### Jenkins Pipeline View - Run Tests
+![Jenkins Pipeline](images/job-for-run-image.png)
+*Jenkins pipeline stages showing Pull Docker Image, Run Tests, and Generate Allure Report stages*
+### Allure Test Report - Overview
+![Allure Report Overview](images/allure-report-overview.png)
+*Overview of test execution showing suites, test cases, and execution status*
+### Allure Dashboard
+![Allure Dashboard](images/allure-report-dashboard.png)
+*Allure dashboard with trend graph, categories, and executor information (Jenkins integration)*
+### Test Execution Logs
+![Test Execution Logs](images/test-execution-log.png)
+*Real-time test execution output showing test progress and status*
