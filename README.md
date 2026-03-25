@@ -9,35 +9,42 @@ This is a comprehensive Playwright test automation framework for testing SauceDe
 ## 🏗️ Project Structure
 ```bash
 playwright-demo-CI/
-├── src/
-│ ├── pages/ # Page Object Models
-│ │ ├── CartPage.ts
-│ │ ├── CheckoutComplete.ts
-│ │ ├── CheckoutStepOnePage.ts
-│ │ ├── CheckoutStepTwoPage.ts
-│ │ ├── HomePage.ts
-│ │ └── LoginPage.ts
-│ ├── tests/ # Test files
-│ │ ├── auth.spec.ts # Authentication tests
-│ │ └── checkout.spec.ts # Checkout process tests
-│ └── utils/ # Utilities
-│ ├── logger.ts
-│ ├── testStatusTracker.ts
-│ ├── globalSetup.ts
-│ └── test_data/
-│ ├── authData.ts
-│ ├── checkoutData.ts
-│ └── userData.ts
 ├── configs/
-│ └── .env.stag # Environment configuration
-├── logs/ # Test execution logs
-├── reports/ # Test reports
+│   └── .env.stag # Environment configuration
 ├── fixtures/
-│ └── fixture.ts # Playwright fixtures
-├── playwright.config.ts # Playwright configuration
+│   └── fixture.ts # Playwright fixtures
+├── reports/ # Test reports
+│   ├── allure-report/
+│   ├── json-report/
+│   └── playwright-report/
+├── src/
+│   ├── log/ # Test execution logs
+│   │   ├── failed-tests.txt
+│   │   └── test-log.log
+│   ├── pages/ # Page Object Models
+│   │   ├── CartPage.ts
+│   │   ├── CheckoutComplete.ts
+│   │   ├── CheckoutStepOnePage.ts
+│   │   ├── CheckoutStepTwoPage.ts
+│   │   ├── HomePage.ts
+│   │   ├── LoginPage.ts
+│   │   └── ProductPage.ts
+│   ├── tests/ # Test files
+│   │   ├── auth.spec.ts # Authentication tests
+│   │   └── checkout.spec.ts # Checkout process tests
+│   └── utils/ # Utilities
+│       ├── commonMethods.ts
+│       ├── globalSetup.ts
+│       ├── logger.ts
+│       ├── testStatusTracker.ts
+│       └── test_data/
+│           ├── authData.ts
+│           ├── checkoutData.ts
+│           └── userData.ts
+├── Dockerfile # Docker configuration
 ├── package.json # Dependencies and scripts
-├── run-failed-tests.js # Failed tests retry script
-└── Dockerfile # Docker configuration
+├── playwright.config.ts # Playwright configuration
+└── run-failed-tests.js # Failed tests retry script
 ```
 ## 🚀 Prerequisites
 - Node.js 18+
@@ -281,6 +288,11 @@ node run-failed-tests.js
 |------------|-------------------------------------------------------------------------|------------------------------|
 | TEST_TAG    | @smoke, @regression, @sanity, (empty)                                   | Filter tests by tag          |
 | PROJECT     | chromium, firefox, webkit, Mobile Chrome, Mobile Safari, Microsoft Edge, Google Chrome | Browser/device to test       |
+
+### Pipeline Jobs Overview
+For a deeper understanding of the mechanism and to see the complete Jenkinsfile Groovy scripts:
+- 🐳 **[Job 1: Build Docker Image](job1_Jenkins.md)**: Details the process of pulling the latest source code from GitHub, building the Docker image for Playwright, and pushing it to Docker Hub.
+- 🧪 **[Job 2: Run Tests & Reports](job2_Jenkins.md)**: Explains how the test parameters are consumed to pull the image and execute the containerized Playwright tests, culminating in the generation and archiving of dynamic Allure test reports.
 ## 📊 Accessing Allure Reports
 After successful test execution:
 1. Go to the Jenkins job page
